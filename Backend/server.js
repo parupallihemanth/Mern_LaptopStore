@@ -1,9 +1,13 @@
 const express =  require('express');
 const dotenv = require('dotenv');
+const cookieParser   = require('cookie-parser')
             
 
 
 const connectDB = require('./config/db')
+
+const authRoutes = require('./routers/auth');
+const productRoutes = require('./routers/product')
 
 
 
@@ -14,8 +18,10 @@ dotenv.config({path: './config/.env' })
 connectDB()
 
 
-
-
+app.use(express.json())
+app.use(cookieParser())
+app.use('/api', authRoutes);
+app.use('/api', productRoutes)
 
 
 
