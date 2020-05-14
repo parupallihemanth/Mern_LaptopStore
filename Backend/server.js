@@ -1,6 +1,8 @@
 const express =  require('express');
 const dotenv = require('dotenv');
-const cookieParser   = require('cookie-parser')
+const cookieParser   = require('cookie-parser');
+const cors = require('cors')
+// const expressMongoSanitize = require('express-mongo-sanitize')
             
 
 
@@ -18,8 +20,11 @@ dotenv.config({path: './config/.env' })
 connectDB()
 
 
+
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors())
+// app.use(expressMongoSanitize())
 app.use('/api', authRoutes);
 app.use('/api', productRoutes)
 

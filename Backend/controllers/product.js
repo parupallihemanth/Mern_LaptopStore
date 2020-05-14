@@ -3,6 +3,8 @@ const fs = require("fs")
 const formidable = require('formidable');
 const _ = require('lodash')
 
+
+// create product
 exports.createProduct = ( req, res) =>{
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
@@ -48,4 +50,20 @@ exports.createProduct = ( req, res) =>{
 
     })
 
+}
+
+// get all products
+
+exports.getAllProducts = (req, res) =>{
+    Product.find().exec( (err, product) =>{
+        if(err || !product){
+            return res.status(400).json({
+                msg : "No products found"
+
+            }
+            )
+        }
+
+        return res.status(200).json(product)
+    }) 
 }

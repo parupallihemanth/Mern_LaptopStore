@@ -1,10 +1,16 @@
 const User = require('../modals/user')
-const jwt = require('jsonwebtoken')
+const { check, validationResult} = require('express-validator')
+const jwt = require('jsonwebtoken');
 
 
 // Signup
 
 exports.signUp = ( req, res) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+        return res.status(422).json({ error: error.array()[0].msg });
+      }
+    
 
     const user = new User(req.body)
     user.save((err, user) =>{
